@@ -1,3 +1,7 @@
 ^AMRdb\.Rproj$
 ^\.Rproj\.user$
 ^dev$
+^LICENSE\.md$
+^README\.Rmd$
+^\.github$
+^codecov\.yml$

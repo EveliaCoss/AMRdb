@@ -1,22 +1,32 @@
 Package: AMRdb
-Title: A Curated Resource for AMR Data Exploration
-Version: 0.0.0.9000
+Title: What the Package Does (One Line, Title Case)
+Version: 0.1.0
+Date: 2025-06-30
 Authors@R: c(
     person("Evelia", "Coss", email = "ecossnav@gmail.com", role = c("aut", "cre"),
     comment = c(ORCID = "0000-0002-7087-2977")),
     person("Haydeé", "Peruyero", email = "haydeeperuyero@matmor.unam.mx", role = "aut",
     comment = c(ORCID = "0000-0002-4820-1798")),
-    person("Nelly", "Sélem", email = "nselem84@gmail.com", role = aut",
-    comment = c(ORCID = "0000-0003-1697-3862"))
-    person("Johana", "Castelán", email = "johan.ccas02@gmail.com", role = aut",
+    person("Nelly", "Sélem", email = "nselem84@gmail.com", role = "aut",
+    comment = c(ORCID = "0000-0003-1697-3862")),
+    person("Johana", "Castelán", email = "johan.ccas02@gmail.com", role = "aut",
     comment = c(ORCID = "0009-0009-5184-8996")),
-    person("Mariana", "Amaro", email = "m.amaro0409@gmail.com", role = aut",
+    person("Mariana", "Amaro", email = "m.amaro0409@gmail.com", role = "aut",
     comment = c(ORCID = "0009-0009-5184-8996")))
-Description: AMDdb is an R data package that integrates standardized antibiograms and genomic metadata obtained from public repositories such as ENA, BV-BRC, and NCBI, with a focus on the study of antimicrobial resistance (AMR). Its goal is to support reproducible analysis of phenotypic and genotypic resistance profiles through curated datasets and auxiliary functions. This resource is intended for researchers, epidemiologists, and bioinformaticians interested in exploring resistance patterns, conducting comparative studies, and enhancing AMR surveillance using structured clinical and genomic information.
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+URL: https://github.com/EveliaCoss/AMRdb
+BugReports: https://github.com/EveliaCoss/AMRdb//issues/
+biocViews: ExperimentData
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-URL: https://github.com/EveliaCoss/AMRdb
-BugReports: https://github.com/EveliaCoss/AMRdb/issues
+Suggests: 
+    BiocStyle,
+    knitr,
+    RefManageR,
+    rmarkdown,
+    sessioninfo,
+    testthat
+Config/testthat/edition: 3
+VignetteBuilder: knitr
