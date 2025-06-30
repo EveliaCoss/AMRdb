@@ -4,7 +4,7 @@ author:
   - name: Evelia Coss
     affiliation:
     - Your institution
-    email: your.email@somewhere.com
+    email: ecossnav@gmail.com
 output: 
   BiocStyle::html_document:
     self_contained: yes
