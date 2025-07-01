@@ -8,7 +8,7 @@ Authors@R: c(
     person("Haydeé", "Peruyero", email = "haydeeperuyero@matmor.unam.mx", role = "aut",
     comment = c(ORCID = "0000-0002-4820-1798")),
     person("Johana", "Castelán", email = "johan.ccas02@gmail.com", role = "aut",
-    comment = c(ORCID = "0009-0009-5184-8996")),
+    comment = c(ORCID = "0000-0001-9974-1172")),
     person("Mariana", "Amaro", email = "m.amaro0409@gmail.com", role = "aut",
     comment = c(ORCID = "0009-0009-5184-8996")), 
     person("Nelly", "Sélem", email = "nselem84@gmail.com", role = "aut",
@@ -21,12 +21,17 @@ biocViews: ExperimentData
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+Imports:
+    tidyverse (>= 1.0.0),
+    here (>= 1.0.0)
 Suggests: 
     BiocStyle,
     knitr,
     RefManageR,
     rmarkdown,
+    ggplot2,
     sessioninfo,
     testthat
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+LazyData: true

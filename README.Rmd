@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# AMRdb
+# AMRdb  <img src="man/figures/AMRdb-logo2.png" align="right" height="120px" />
 
 <!-- badges: start -->
 [![GitHub issues](https://img.shields.io/github/issues/EveliaCoss/AMRdb)](https://github.com/EveliaCoss/AMRdb/issues)
@@ -31,11 +31,15 @@ The goal of `AMRdb` is to provide a curated, high-quality dataset that supports 
 
 - Integrate structured data into reproducible workflows for computational AMR surveillance and comparative genomics.
 
-The data included in this package are sourced from publicly available repositories such as the European Nucleotide Archive (ENA), BV-BRC, and NCBI, offering a harmonized foundation for predictive modeling and downstream resistance profiling.
-
 ## Installation instructions
 
-Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then install `AMRdb` from [Github](https://github.com/EveliaCoss/AMRdb) using the following code:
+Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). 
+
+```{r 'CRAN_install', eval = FALSE}
+install.packages("AMRdb")
+```
+
+To install the development version from [Github](https://github.com) use: 
 
 ```{r 'github_install', eval = FALSE}
 if (!requireNamespace("remotes", quietly = TRUE)) {
@@ -61,7 +65,40 @@ And the development version from [GitHub](https://github.com/EveliaCoss/AMRdb) w
 BiocManager::install("EveliaCoss/AMRdb")
 ```
 
-## Example
+## About the data
+
+The data included in this package are sourced from publicly available repositories such as the [ENA browser](https://www.ebi.ac.uk/ena/browser/home), [BV-BRC](https://www.bv-brc.org/), and [NCBI](https://www.ncbi.nlm.nih.gov/), offering a harmonized foundation for predictive modeling and downstream resistance profiling.
+
+The `AMRdb` package contains X datasets:
+
+```{r}
+library(palmerpenguins)
+data(package = 'palmerpenguins')
+```
+
+One is called `antibiograms`, and is a simplified version of the raw data; see `?antibiograms` for more info:
+
+```{r}
+head(penguins)
+```
+
+The second dataset is `X`, and contains all the variables and original names as downloaded; see `?penguins_raw` for more info.
+
+```{r}
+head(penguins_raw)
+```
+
+Both datasets contain data for 344 penguins. There are 3 different species of penguins in this dataset, collected from 3 islands in the Palmer Archipelago, Antarctica.
+
+```{r}
+str(penguins)
+```
+
+## Examples
+
+You can find these and more code examples for exploring `palmerpenguins` in `vignette("examples")`.
+
+
 
 
 
@@ -80,15 +117,6 @@ Please note that the `AMRdb` was only made possible thanks to many other R and b
 
 Please note that the `AMRdb` project is released with a [Contributor Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
 
-## Development tools
-
-* Continuous code testing is possible thanks to [GitHub actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)  through `r BiocStyle::CRANpkg('usethis')`, `r BiocStyle::CRANpkg('remotes')`, and `r BiocStyle::CRANpkg('rcmdcheck')` customized to use [Bioconductor's docker containers](https://www.bioconductor.org/help/docker/) and `r BiocStyle::Biocpkg('BiocCheck')`.
-* Code coverage assessment is possible thanks to [codecov](https://codecov.io/gh) and `r BiocStyle::CRANpkg('covr')`.
-* The [documentation website](http://EveliaCoss.github.io/AMRdb) is automatically updated thanks to `r BiocStyle::CRANpkg('pkgdown')`.
-* The code is styled automatically thanks to `r BiocStyle::CRANpkg('styler')`.
-* The documentation is formatted thanks to `r BiocStyle::CRANpkg('devtools')` and `r BiocStyle::CRANpkg('roxygen2')`.
-
-For more details, check the `dev` directory.
 
 This package was developed using `r BiocStyle::Biocpkg('biocthis')`.
 

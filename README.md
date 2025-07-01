@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# AMRdb
+# AMRdb <img src="man/figures/AMRdb-logo2.png" align="right" height="120px" />
 
 <!-- badges: start -->
 
@@ -32,16 +32,17 @@ scientists to:
 - Integrate structured data into reproducible workflows for
   computational AMR surveillance and comparative genomics.
 
-The data included in this package are sourced from publicly available
-repositories such as the European Nucleotide Archive (ENA), BV-BRC, and
-NCBI, offering a harmonized foundation for predictive modeling and
-downstream resistance profiling.
-
 ## Installation instructions
 
 Get the latest stable `R` release from
-[CRAN](http://cran.r-project.org/). Then install `AMRdb` from
-[Github](https://github.com/EveliaCoss/AMRdb) using the following code:
+[CRAN](http://cran.r-project.org/).
+
+``` r
+install.packages("AMRdb")
+```
+
+To install the development version from [Github](https://github.com)
+use:
 
 ``` r
 if (!requireNamespace("remotes", quietly = TRUE)) {
@@ -69,7 +70,85 @@ And the development version from
 BiocManager::install("EveliaCoss/AMRdb")
 ```
 
-## Example
+## About the data
+
+The data included in this package are sourced from publicly available
+repositories such as the [ENA
+browser](https://www.ebi.ac.uk/ena/browser/home),
+[BV-BRC](https://www.bv-brc.org/), and
+[NCBI](https://www.ncbi.nlm.nih.gov/), offering a harmonized foundation
+for predictive modeling and downstream resistance profiling.
+
+The `AMRdb` package contains X datasets:
+
+``` r
+library(palmerpenguins)
+#> 
+#> Attaching package: 'palmerpenguins'
+#> The following objects are masked from 'package:datasets':
+#> 
+#>     penguins, penguins_raw
+data(package = 'palmerpenguins')
+```
+
+One is called `antibiograms`, and is a simplified version of the raw
+data; see `?antibiograms` for more info:
+
+``` r
+head(penguins)
+#> # A tibble: 6 × 8
+#>   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+#>   <fct>   <fct>              <dbl>         <dbl>             <int>       <int>
+#> 1 Adelie  Torgersen           39.1          18.7               181        3750
+#> 2 Adelie  Torgersen           39.5          17.4               186        3800
+#> 3 Adelie  Torgersen           40.3          18                 195        3250
+#> 4 Adelie  Torgersen           NA            NA                  NA          NA
+#> 5 Adelie  Torgersen           36.7          19.3               193        3450
+#> 6 Adelie  Torgersen           39.3          20.6               190        3650
+#> # ℹ 2 more variables: sex <fct>, year <int>
+```
+
+The second dataset is `X`, and contains all the variables and original
+names as downloaded; see `?penguins_raw` for more info.
+
+``` r
+head(penguins_raw)
+#> # A tibble: 6 × 17
+#>   studyName `Sample Number` Species          Region Island Stage `Individual ID`
+#>   <chr>               <dbl> <chr>            <chr>  <chr>  <chr> <chr>          
+#> 1 PAL0708                 1 Adelie Penguin … Anvers Torge… Adul… N1A1           
+#> 2 PAL0708                 2 Adelie Penguin … Anvers Torge… Adul… N1A2           
+#> 3 PAL0708                 3 Adelie Penguin … Anvers Torge… Adul… N2A1           
+#> 4 PAL0708                 4 Adelie Penguin … Anvers Torge… Adul… N2A2           
+#> 5 PAL0708                 5 Adelie Penguin … Anvers Torge… Adul… N3A1           
+#> 6 PAL0708                 6 Adelie Penguin … Anvers Torge… Adul… N3A2           
+#> # ℹ 10 more variables: `Clutch Completion` <chr>, `Date Egg` <date>,
+#> #   `Culmen Length (mm)` <dbl>, `Culmen Depth (mm)` <dbl>,
+#> #   `Flipper Length (mm)` <dbl>, `Body Mass (g)` <dbl>, Sex <chr>,
+#> #   `Delta 15 N (o/oo)` <dbl>, `Delta 13 C (o/oo)` <dbl>, Comments <chr>
+```
+
+Both datasets contain data for 344 penguins. There are 3 different
+species of penguins in this dataset, collected from 3 islands in the
+Palmer Archipelago, Antarctica.
+
+``` r
+str(penguins)
+#> tibble [344 × 8] (S3: tbl_df/tbl/data.frame)
+#>  $ species          : Factor w/ 3 levels "Adelie","Chinstrap",..: 1 1 1 1 1 1 1 1 1 1 ...
+#>  $ island           : Factor w/ 3 levels "Biscoe","Dream",..: 3 3 3 3 3 3 3 3 3 3 ...
+#>  $ bill_length_mm   : num [1:344] 39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...
+#>  $ bill_depth_mm    : num [1:344] 18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...
+#>  $ flipper_length_mm: int [1:344] 181 186 195 NA 193 190 181 195 193 190 ...
+#>  $ body_mass_g      : int [1:344] 3750 3800 3250 NA 3450 3650 3625 4675 3475 4250 ...
+#>  $ sex              : Factor w/ 2 levels "female","male": 2 1 1 NA 1 2 1 2 NA NA ...
+#>  $ year             : int [1:344] 2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...
+```
+
+## Examples
+
+You can find these and more code examples for exploring `palmerpenguins`
+in `vignette("examples")`.
 
 ## Citation
 
@@ -121,30 +200,6 @@ vignettes and/or the paper(s) describing this package.
 Please note that the `AMRdb` project is released with a [Contributor
 Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By
 contributing to this project, you agree to abide by its terms.
-
-## Development tools
-
-- Continuous code testing is possible thanks to [GitHub
-  actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)
-  through *[usethis](https://CRAN.R-project.org/package=usethis)*,
-  *[remotes](https://CRAN.R-project.org/package=remotes)*, and
-  *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)* customized
-  to use [Bioconductor’s docker
-  containers](https://www.bioconductor.org/help/docker/) and
-  *[BiocCheck](https://bioconductor.org/packages/3.21/BiocCheck)*.
-- Code coverage assessment is possible thanks to
-  [codecov](https://codecov.io/gh) and
-  *[covr](https://CRAN.R-project.org/package=covr)*.
-- The [documentation website](http://EveliaCoss.github.io/AMRdb) is
-  automatically updated thanks to
-  *[pkgdown](https://CRAN.R-project.org/package=pkgdown)*.
-- The code is styled automatically thanks to
-  *[styler](https://CRAN.R-project.org/package=styler)*.
-- The documentation is formatted thanks to
-  *[devtools](https://CRAN.R-project.org/package=devtools)* and
-  *[roxygen2](https://CRAN.R-project.org/package=roxygen2)*.
-
-For more details, check the `dev` directory.
 
 This package was developed using
 *[biocthis](https://bioconductor.org/packages/3.21/biocthis)*.
