@@ -1,10 +1,11 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# AMRdb <img src="man/figures/AMRdb-logo2.png" align="right" height="120px" />
+# AMRdb <a href='https://eveliacoss.github.io/AMRdb/'><img src='man/figures/AMRdb-logo2.png' align="right" height="138.5" /></a>
 
 <!-- badges: start -->
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3960218.svg)](https://doi.org/10.5281/zenodo.3960218)
 [![GitHub
 issues](https://img.shields.io/github/issues/EveliaCoss/AMRdb)](https://github.com/EveliaCoss/AMRdb/issues)
 [![GitHub
@@ -83,11 +84,6 @@ The `AMRdb` package contains X datasets:
 
 ``` r
 library(palmerpenguins)
-#> 
-#> Attaching package: 'palmerpenguins'
-#> The following objects are masked from 'package:datasets':
-#> 
-#>     penguins, penguins_raw
 data(package = 'palmerpenguins')
 ```
 

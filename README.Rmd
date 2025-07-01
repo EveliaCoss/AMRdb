@@ -9,13 +9,19 @@ knitr::opts_chunk$set(
     collapse = TRUE,
     comment = "#>",
     fig.path = "man/figures/README-",
-    out.width = "100%"
+    out.width = "75%",
+    warning = FALSE,
+    message = FALSE,
+    fig.retina = 2,
+    fig.align = 'center'
 )
+library(tidyverse)
 ```
 
-# AMRdb  <img src="man/figures/AMRdb-logo2.png" align="right" height="120px" />
+# AMRdb  <a href='https://eveliacoss.github.io/AMRdb/'><img src='man/figures/AMRdb-logo2.png' align="right" height="138.5" /></a>
 
 <!-- badges: start -->
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3960218.svg)](https://doi.org/10.5281/zenodo.3960218)
 [![GitHub issues](https://img.shields.io/github/issues/EveliaCoss/AMRdb)](https://github.com/EveliaCoss/AMRdb/issues)
 [![GitHub pulls](https://img.shields.io/github/issues-pr/EveliaCoss/AMRdb)](https://github.com/EveliaCoss/AMRdb/pulls)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
