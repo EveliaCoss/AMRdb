@@ -92,7 +92,7 @@ body[data-theme="dark"] pre code {
    Logo styling in README
    ===================== */
 .readme img[src*="AMRdb-logo2.png"] {
-  height: 100px;
+  height: 150px;
   float: right;
   margin-left: 15px;
   margin-top: 0px;
