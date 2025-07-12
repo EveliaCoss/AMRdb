@@ -11,17 +11,6 @@
   - Contributions or forks should maintain header attribution and link back to https://github.com/EveliaCoss/AMRdb
 */
 
-
-/* =====================
-   General site styles
-   ===================== */
-
-/* Estilo de la letra */
-body {
-  font-family: "Lato", "Helvetica Neue", sans-serif;
-  line-height: 1.6;
-}
-
 /* =====================
          Light theme
    ===================== */
@@ -49,6 +38,16 @@ body[data-theme="light"] a {
 }
 body[data-theme="light"] a:hover {
   color: #004488;
+}
+
+/* Código */
+body[data-theme="light"] pre code {
+  background-color: #f3f3f3;
+  color: #6a0dad;                    /* Texto púrpura intenso */
+  border: 1px solid #dcdcdc;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.95em;
 }
 
 /* =====================
@@ -81,6 +80,14 @@ body[data-theme="dark"] a:hover {
   color: #b8bb26;
 }
 
+/* Código */
+body[data-theme="dark"] pre code {
+  background-color: #282828;
+  border: 1px solid #3c3836;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.95em;
+}
 /* =====================
    Logo styling in README
    ===================== */
@@ -125,21 +132,5 @@ table {
 th, td {
   border: 1px solid #dddddd;
   padding: 8px;
-}
-
-/* =====================
-   Code blocks
-   ===================== */
-
-/* Código */
-pre code {
-  background-color: #f0f0f0;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-body[data-theme="dark"] pre code {
-  background-color: #282828;
-  border: 1px solid #3c3836;
 }
 
