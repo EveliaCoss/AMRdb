@@ -24,3 +24,4 @@
 #'
 #' @source <https://zenodo.org/records/14876710>
 "antibiograms_db"
+#' @examples NULL
