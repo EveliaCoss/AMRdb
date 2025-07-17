@@ -5,7 +5,7 @@ Date: 2025-06-30
 Authors@R: c(
     person("Evelia", "Coss", email = "ecossnav@gmail.com", role = c("aut", "cre"),
     comment = c(ORCID = "0000-0002-7087-2977")),
-    person("Haydeé", "Peruyero", email = "haydeeperuyero@matmor.unam.mx", role = "aut",
+    person("Haydeé", "Peruyero", email = "haydeeperuyero@gmail.com", role = "aut",
     comment = c(ORCID = "0000-0002-4820-1798")),
     person("Johana", "Castelán", email = "johan.ccas02@gmail.com", role = "aut",
     comment = c(ORCID = "0000-0001-9974-1172")),
@@ -17,13 +17,14 @@ Description: AMDdb is an R data package that integrates standardized antibiogram
 License: MIT + file LICENSE
 URL: https://eveliacoss.github.io/AMRdb/, https://github.com/EveliaCoss/AMRdb
 BugReports: https://github.com/EveliaCoss/AMRdb//issues/
-biocViews: ExperimentData, ReproducibleResearch
+biocViews: ExperimentData, AntimicrobialResistance, Genomics, Annotation, Pangenome, SequenceAnalysis, ReproducibleResearch
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports:
     tidyverse (>= 1.0.0),
-    here (>= 1.0.0)
+    here (>= 1.0.0),
+    dplyr
 Suggests: 
     BiocStyle,
     knitr,
