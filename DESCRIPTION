@@ -16,15 +16,16 @@ Authors@R: c(
 Description: AMDdb is an R data package that integrates standardized antibiograms and genomic metadata obtained from public repositories such as ENA, BV-BRC, and NCBI, with a focus on the study of antimicrobial resistance (AMR). Its goal is to support reproducible analysis of phenotypic and genotypic resistance profiles through curated datasets and auxiliary functions. This resource is intended for researchers, epidemiologists, and bioinformaticians interested in exploring resistance patterns, conducting comparative studies, and enhancing AMR surveillance using structured clinical and genomic information.
 License: MIT + file LICENSE
 URL: https://eveliacoss.github.io/AMRdb/, https://github.com/EveliaCoss/AMRdb
-BugReports: https://github.com/EveliaCoss/AMRdb//issues/
+BugReports: https://github.com/EveliaCoss/AMRdb/issues/
 biocViews: ExperimentData, AntimicrobialResistance, Genomics, Annotation, Pangenome, SequenceAnalysis, ReproducibleResearch
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+Depends: R (>= 4.2.0)
 Imports:
     tidyverse (>= 1.0.0),
     here (>= 1.0.0),
-    dplyr
+    visdat  (>= 0.2.0)
 Suggests: 
     BiocStyle,
     knitr,

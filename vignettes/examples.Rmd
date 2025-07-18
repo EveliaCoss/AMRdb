@@ -1,0 +1,82 @@
+---
+title: "Example graphs using the AMR data"
+output: 
+  BiocStyle::html_document:
+    self_contained: yes
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    code_folding: show
+date: "`r doc_date()`"
+package: "`r pkg_ver('AMRdb')`"
+vignette: >
+  %\VignetteIndexEntry{Example graphs using the AMR data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}  
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    crop = NULL ## Related to https://stat.ethz.ch/pipermail/bioc-devel/2020-April/016656.html
+)
+```
+
+
+```{r vignetteSetup, echo=FALSE, message=FALSE, warning = FALSE}
+## Bib setup
+library("RefManageR")
+
+## Write bibliography information
+bib <- c(
+    R = citation(),
+    BiocStyle = citation("BiocStyle")[1],
+    knitr = citation("knitr")[1],
+    RefManageR = citation("RefManageR")[1],
+    rmarkdown = citation("rmarkdown")[1],
+    sessioninfo = citation("sessioninfo")[1],
+    testthat = citation("testthat")[1],
+    AMRdb = citation("AMRdb")[1]
+)
+
+library(AMRdb)
+library(tidyverse)
+```
+
+# Graphs
+
+Antimicrobial resistance becomes easier to interpret when you start visualizing the data. For example:
+
+```{r}
+training_db_cleaned %>%
+  filter(phenotype %in% c("Susceptible", "Resistant")) %>%
+  count(scientific_name_new, phenotype) %>%
+  group_by(scientific_name_new) %>%
+  mutate(prop = n / sum(n)) %>%
+  ggplot(aes(x = reorder(scientific_name_new, -prop), y = prop, fill = phenotype)) +
+  geom_bar(stat = "identity", position = "fill") +
+  labs(
+    x = "Species",
+    y = "Proportion",
+    fill = "Phenotype",
+    title = "Phenotype Distribution Across All Species"
+  ) +
+  theme_classic() +
+  coord_flip()
+```
+
+```{r}
+training_db_cleaned %>%
+  count(antibiotic, sort = TRUE) %>%
+  top_n(10, wt = n) %>%
+  ggplot(aes(x = reorder(antibiotic, n), y = n)) +
+  geom_bar(stat = "identity", fill = "#56B4E9") +
+  coord_flip() +
+  labs(
+    x = "Antibiotic",
+    y = "Sample Count",
+    title = "Top Antibiotics in the Training Set"
+  ) +
+ theme_classic()
+```

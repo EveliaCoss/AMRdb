@@ -1,0 +1,56 @@
+url: https://eveliacoss.github.io/AMRdb/
+
+home:
+  title: Curated Resource for Antimicrobial Resistance Data Exploration
+  description: AMDdb is an R data package that integrates standardized antibiograms and genomic metadata obtained from public repositories such as ENA, BV-BRC, and NCBI, with a focus on the study of antimicrobial resistance (AMR). Its goal is to support reproducible analysis of phenotypic and genotypic resistance profiles through curated datasets and auxiliary functions. This resource is intended for researchers, epidemiologists, and bioinformaticians interested in exploring resistance patterns, conducting comparative studies, and enhancing AMR surveillance using structured clinical and genomic information.
+
+authors:
+  Evelia Coss:
+    href: https://eveliacoss.github.io/
+  Haydeé Peruyero:
+    href: https://haydeeperuyero.github.io/
+  Johana Castelán:
+    href: https://github.com/Johan0606gen
+  Mariana Amaro:
+    href: https://github.com/MarianaAmaroo
+  Nelly Sélem:
+    href: https://x.com/nselem35
+  Posit Software, PBC:
+    href: https://posit.co
+
+template:
+  bootstrap: 5
+  math-rendering: mathjax # Renderizas funciones matematicas
+  light-switch: true
+  css: assets/custom.css
+  params:
+    ganalytics: G-DY89LFGER4 # Google para analisis de la pagina web
+  opengraph:
+    image:
+      src: man/figures/AMRdb-logo2.png
+      alt: "Curated Resource for Antimicrobial Resistance Data Exploration"
+destination: pkgdown
+
+
+navbar:
+  structure:
+    left:  [intro, reference, articles, download, news]
+    right: [search, github, lightswitch]
+  components:
+    articles:
+      text: Articles
+      menu:
+      - text: "Examples using ggplot2"
+        href: articles/examples.html
+      - text: "Examples using ComplexHeatmap"
+        #href: articles/a1.html
+      - text: "Estadistica descriptiva"
+        #href: articles/a2.html
+      - text: ------- # A separator
+      - text: "Category B"
+      - text: Article B1
+    download:
+      text: Download
+      menu:
+      - text: "Download raw data"
+        href: articles/download.html

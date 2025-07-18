@@ -9,18 +9,19 @@ The dataset comprises 1,404,850 observations across 13 columns, capturing both p
 
 \describe{
 \item{biosample}{A unique identifier for the sample from the NCBI BioSample database.}
+\item{sra_biosample}{BioSample ID linked to the SRA run, if different from biosample}
 \item{scientific_name_Antibiogram}{The species the sample belongs to, and, in some cases, with subspecies information.}
 \item{antibiotic}{The name of the antibiotic against which the sample is tested.}
 \item{phenotype}{The interpreted phenotype from the AST standard used during testing.}
-\item{measurement_sign}{If given, corresponds to the sign of the raw result from the AST. Its interpretation depends on the typing method.}
-\item{measurement_value}{If given, corresponds to the value of the raw result from the AST. Its interpretation depends on the typing method.}
-\item{measurement_units}{If given, corresponds to the units of the raw result from the AST.}
-\item{typing_method}{Name of the technique used for AST.}
+\item{measurement_sign}{Qualifier for the numeric value (e.g., <=, >, =). Its interpretation depends on the typing method.}
+\item{measurement_value}{Numerical value of the measurement (e.g., MIC, zone diameter). Its interpretation depends on the typing method.}
+\item{measurement_units}{Units for the measurement (e.g., mm, ug/mL).}
+\item{typing_method}{Method used to determine resistance (e.g., disk difussio, broth dilution).}
 \item{typing_platform}{Name of the platform used for AST.}
 \item{standard}{Testing standard used for the interpretation of the phenotype.}
 \item{genomes}{Space-separated list of genome identifiers from the NCBI Genome database.}
 \item{accession}{Space-separated list of read run identifiers from the NCBI SRA database.}
-\item{read_type}{Space-separated list with the same length as the reads column, storing the type of read of each corresponding read run.}
+\item{read_type}{Sequencing read type and plataform (e.g.,PAIRED_ILLUMINA SINGLE_ILLUMINA)}
 }
 }
 \source{

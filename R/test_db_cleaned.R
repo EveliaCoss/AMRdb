@@ -1,0 +1,22 @@
+#' Cleaned antimicrobial metadata for test set samples
+#'
+#' A curated data frame containing standardized metadata for test samples from the CAMDA 2025 challenge.
+#' Includes cleaned taxonomy, resistance phenotype assignments, and core features useful for exploratory
+#' analysis and validation alongside the training dataset.
+#'
+#' @format A data frame with N rows and 9 columns:
+#' \describe{
+#'   \item{genus}{Cleaned genus annotation}
+#'   \item{species}{Cleaned species name}
+#'   \item{scientific_name_new}{Standardized full species name after cleaning}
+#'   \item{accession}{SRA accession identifier for each sample}
+#'   \item{genome}{Genome identifier or flag for genome availability}
+#'   \item{phenotype}{Interpretive resistance label: `Susceptible`, `Resistant`, or `?`}
+#'   \item{antibiotic}{Name of antibiotic compound tested}
+#'   \item{measurement_value}{Processed MIC or inhibition zone value}
+#'   \item{ani}{Average Nucleotide Identity score to reference genomes}
+#' }
+#'
+#' @source Cleaned from CAMDA 2025 test metadata using AMRdb workflows
+"test_db_cleaned"
+#' @examples NULL

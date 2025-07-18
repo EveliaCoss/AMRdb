@@ -1,0 +1,229 @@
+---
+title: "Download raw data from public sources"
+output: 
+  BiocStyle::html_document:
+    self_contained: yes
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    code_folding: show
+date: "`r doc_date()`"
+package: "`r pkg_ver('AMRdb')`"
+vignette: >
+  %\VignetteIndexEntry{Download raw data from public sources}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}  
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    crop = NULL ## Related to https://stat.ethz.ch/pipermail/bioc-devel/2020-April/016656.html
+)
+```
+
+
+```{r vignetteSetup, echo=FALSE, message=FALSE, warning = FALSE}
+## Bib setup
+library("RefManageR")
+
+## Write bibliography information
+bib <- c(
+    R = citation(),
+    BiocStyle = citation("BiocStyle")[1],
+    knitr = citation("knitr")[1],
+    RefManageR = citation("RefManageR")[1],
+    rmarkdown = citation("rmarkdown")[1],
+    sessioninfo = citation("sessioninfo")[1],
+    testthat = citation("testthat")[1],
+    AMRdb = citation("AMRdb")[1]
+)
+```
+
+Load packages
+
+```{r packages, message=FALSE, warning=FALSE, eval=FALSE}
+library(here)
+library((janitor)
+library(tidyverse)
+```
+
+## STEP1 - Opcion A: Download data from URL
+
+### Combined antibiogram dataset
+
+You can download the antibiogram files from [ENA browser](https://www.ebi.ac.uk/ena/browser/home), [BV-BRC](https://www.bv-brc.org/), and [NCBI](https://www.ncbi.nlm.nih.gov/) using the reference file available on [Zenodo](https://zenodo.org/records/14876710), published on July 4, 2025 (version 4).
+
+```{r, eval=FALSE}
+# Define URL and local destination
+anti_url <- "https://zenodo.org/records/15809334/files/antibiograms.tsv.zip"
+# Replace "inst/extdata" with the actual path to your folder
+targetfile <- here("inst/extdata", "antibiograms.tsv.zip") # <- Change this to your own directory
+
+# Download the compressed file
+download.file(url = anti_url, destfile = targetfile, mode = "wb")
+
+# Unzip the .zip file
+unzip(targetfile, exdir = "inst/extdata")
+
+# Import the data into R
+antibiograms_metadata <- readr::read_tsv(here("inst/extdata","antibiograms.tsv"))  # <- Specify the directory path
+```
+
+You can compress the file to `.gz` format before loading it into R. The `read_tsv()` function supports reading `.gz-compressed` files directly.
+
+```{r, eval=FALSE}
+# Compress the file to .gz format
+original_file <- here("inst/extdata", "antibiograms.tsv")
+gz_file <- here("inst/extdata", "antibiograms.tsv.gz")
+R.utils::gzip(original_file, destname = gz_file, overwrite = TRUE)
+
+# Read the .tsv.gz file into R
+antibiograms_metadata <- readr::read_tsv(here("inst/extdata", "antibiograms.tsv.gz"))
+```
+
+We recommend simplifying column formats using the `janitor` package and standardizing column names as shown below.
+
+```{r, eval=FALSE}
+# Clean antibiogram metadata
+antibiograms_db <- antibiograms_metadata %>%
+  # Standardizes column names: converts them to lowercase,
+  # replaces spaces and special characters with underscores
+  janitor::clean_names() %>%
+  # Renames the columns
+  rename(
+    accession = reads,
+    scientific_name_Antibiogram = species
+  )
+```
+
+### CAMDA training dataset
+
+```{r, eval=FALSE}
+# Define the raw URL
+url <- "https://raw.githubusercontent.com/EveliaCoss/AMRdb/devel/inst/extdata/training_dataset.csv"
+
+# Destination filename
+dest <- "training_dataset.csv"
+
+# Download the file
+download.file(url, dest, mode = "wb")
+
+# Load the data
+training_metadata <- read.csv(dest, stringsAsFactors = FALSE)
+
+# Rename species
+training_metadata_db <- training_metadata %>%
+  mutate(scientific_name_CAMDA = paste(genus, species, sep = " "))
+```
+
+
+### CAMDA test dataset
+
+```{r, eval=FALSE}
+# Define the raw URL
+url <- "https://raw.githubusercontent.com/EveliaCoss/AMRdb/devel/inst/extdata/testing_template.csv"
+
+# Destination filename
+dest <- "testing_template.csv"
+
+# Download the file
+download.file(url, dest, mode = "wb")
+
+# Load the data
+test_metadata <- read.csv(dest, stringsAsFactors = FALSE)
+
+# Rename species
+test_metadata_db <- test_metadata %>%
+  mutate(scientific_name_CAMDA = paste(genus, species, sep = " ")) %>%
+  mutate(antibiotic = if_else(antibiotic == "tetracycline", "TET", antibiotic))
+```
+
+## STEP1 - Opcion B: Download data from packages
+
+### Combined antibiogram dataset
+
+Download antibiogram files from [ENA browser](https://www.ebi.ac.uk/ena/browser/home), [BV-BRC](https://www.bv-brc.org/), and [NCBI](https://www.ncbi.nlm.nih.gov/) via the [Zenodo](https://zenodo.org/records/14876710) reference (version 4, July 4, 2025).
+
+```{r, eval=FALSE}
+library(AMRdb)
+
+dir <- system.file("extdata", package="AMRdb")
+# Read the .tsv.gz file into R
+antibiograms_metadata <- readr::read_tsv(file.path(dir, "antibiograms.tsv.gz"))
+```
+
+### CAMDA training dataset
+
+```{r package_training_download, eval=FALSE}
+dir <- system.file("extdata", package="AMRdb")
+training_metadata <- readr::read_csv(file.path(dir, "training_dataset.csv"))
+# Rename species
+training_metadata_db <- training_metadata %>%
+  mutate(scientific_name_CAMDA = paste(genus, species, sep = " "))
+# Rows: 6144 Columns: 16── Column
+```
+
+### CAMDA test dataset
+
+The data were provided by CAMDA as part of the 2025 challenge focused on phenotype and MIC prediction using publicly available datasets from 9 bacterial species. However, we have identified that the test dataset includes duplicated entries or information already present in the training dataset. This redundancy may affect model evaluation and should be carefully examined during preprocessing.
+
+```{r package_test_download, eval=FALSE}
+# Load CAMDA test dataset
+dir <- system.file("extdata", package="AMRdb")
+# Read the .csv file into R
+test_metadata <- readr::read_csv(file.path(dir, "testing_template.csv"))
+
+# Rename species
+test_metadata_db <- test_metadata %>%
+  mutate(scientific_name_CAMDA = paste(genus, species, sep = " ")) %>%
+  mutate(antibiotic = if_else(antibiotic == "tetracycline", "TET", antibiotic))
+# Rows: 5345 Columns: 6── Column
+```
+
+### NCBI information
+
+```{r, eval=FALSE}
+# Read the .csv file into R
+dir <- system.file("extdata", package="AMRdb")
+sra_metadata_db <- readr::read_csv(file.path(dir, "sra-metadata.csv") %>%
+  # Standardizes column names: converts them to lowercase,
+  # replaces spaces and special characters with underscores
+  janitor::clean_names() %>%
+  # Select columns
+  select(run, library_strategy, library_selection, library_source, platform,
+         model, bio_project, bio_sample, scientific_name) %>%
+  # Renames columns
+  rename(accession = run, scientific_name_complete = scientific_name)
+
+# Reduce name
+sra_metadata_db$scientific_name_NCBI <- word(sra_metadata_db$scientific_name_complete, 1, 2)
+```
+
+### Genome taxonomy database (GTDB)
+
+The information extracted from the Genome Taxonomy Database (GTDB) is linked to the accession IDs provided in both the CAMDA training and test datasets
+
+```{r, eval=FALSE}
+dir <- system.file("extdata", package="AMRdb")
+# test information
+test_gtdb_result <- readr::read_csv(file.path(dir, "test.ani.csv"))
+# training information
+train_gtdb_result <- readr::read_csv(file.path(dir, "train.ani.csv"))
+```
+
+## Compare to package data
+
+Compare to `?antibiograms_db`:
+
+```{r}
+library(AMRdb)
+data(package = "AMRdb")
+
+head(antibiograms_db)
+```
+
+
+
+

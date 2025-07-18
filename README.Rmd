@@ -16,9 +16,10 @@ knitr::opts_chunk$set(
     fig.align = 'center'
 )
 library(tidyverse)
+library(here)
 ```
 
-# AMRdb  <a href='https://eveliacoss.github.io/AMRdb/'><img src='man/figures/AMRdb-logo2.png' align="right" height="138.5" /></a>
+# AMRdb  <a href='https://eveliacoss.github.io/AMRdb/'><img src='man/figures/AMRdb-logo2.png' align="right" style="height:100px;" /></a>
 
 <!-- badges: start -->
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3960218.svg)](https://doi.org/10.5281/zenodo.3960218)
@@ -31,7 +32,7 @@ library(tidyverse)
 
 The goal of `AMRdb` is to provide a curated, high-quality dataset that supports the analysis, visualization, and modeling of antimicrobial resistance (AMR). Specifically, AMRdb enables researchers and data scientists to:
 
-- Analyze outputs from Machine Learning and Deep Learning models, particularly those related to MIC (Minimum Inhibitory Concentration) predictions and phenotypic classification (Resistant, Intermediate, Susceptible).
+- Analyze outputs from Machine Learning (ML) and Deep Learning (DL) models, particularly those related to MIC (Minimum Inhibitory Concentration) predictions and phenotypic classification (Resistant, Intermediate, Susceptible).
 
 - Explore clinical and genomic metadata associated with microbial isolates.
 
@@ -75,38 +76,204 @@ BiocManager::install("EveliaCoss/AMRdb")
 
 The data included in this package are sourced from publicly available repositories such as the [ENA browser](https://www.ebi.ac.uk/ena/browser/home), [BV-BRC](https://www.bv-brc.org/), and [NCBI](https://www.ncbi.nlm.nih.gov/), offering a harmonized foundation for predictive modeling and downstream resistance profiling.
 
-The `AMRdb` package contains X datasets:
+The `AMRdb` package contains 4 datasets:
 
-```{r}
-library(palmerpenguins)
-data(package = 'palmerpenguins')
+```{r, warning=FALSE}
+library(AMRdb)
 ```
 
-One is called `antibiograms`, and is a simplified version of the raw data; see `?antibiograms` for more info:
+### Raw metadata
+
+The first dataset is `training_metadata_db`, which contains the full unprocessed metadata as originally downloaded from the CAMDA 2025 training set. It preserves all column names, formats, and variable structures for traceability and cross-referencing. This dataset complements the cleaned version and supports reproducibility and model auditability; see `?training_metadata_db` for more details.
 
 ```{r}
-head(penguins)
+head(training_metadata_db)
 ```
 
-The second dataset is `X`, and contains all the variables and original names as downloaded; see `?penguins_raw` for more info.
+The second dataset is `test_metadata_db`, which includes all original variables and column names exactly as provided in the CAMDA 2025 test set.It serves as the benchmark data for validating ML and DL models built during the challenge. For details on structure and usage, see `?test_metadata_db`.
 
 ```{r}
-head(penguins_raw)
+head(test_metadata_db)
 ```
 
-Both datasets contain data for 344 penguins. There are 3 different species of penguins in this dataset, collected from 3 islands in the Palmer Archipelago, Antarctica.
+### Cleaned metadata
+
+The third dataset is `training_db_cleaned`, which contains curated and preprocessed metadata from the CAMDA 2025 training set (`training_metadata_db`). Species-level annotations were verified using the Genome Taxonomy Database (GTDB), based on Average Nucleotide Identity (ANI) calculated for each SRA accession. Two new columns were added:
+
+- `scientific_name_new`, the corrected species name inferred from GTDB
+- `new_genus`, the revised genus assignment, which can be used in downstream steps to reassess MIC interpretations. See ?training_db_cleaned for full details.
+
+All relevant variables have been standardized for downstream analysis; see `?training_db_cleaned` for full details.
 
 ```{r}
-str(penguins)
+head(training_db_cleaned)
 ```
+
+The fourth dataset is `test_db_cleaned`, derived from the CAMDA 2025 test set (`test_metadata_db`). Accessions shared with the training set (`training_metadata_db`) were removed to avoid data leakage. GTDB-based species validation was performed to verify taxonomic annotations. A new column, `scientific_name_new`, provides the corrected species name for each sample based on ANI profiling. See ?test_db_cleaned for more information.
+
+```{r}
+head(test_db_cleaned)
+```
+
+### Public metadata
+
+The fifth dataset, `antibiograms_db`, contains public antimicrobial susceptibility data linked to SRA accessions from both the CAMDA 2025 training and test sets. Records were retrieved from ENA, BV-BRC, and NCBI using a Zenodo reference (version 4, July 4, 2025); see `?antibiograms_db` for more info:
+
+```{r}
+head(antibiograms_db)
+```
+
+The sixth dataset, `rgi_results`, contains resistance gene features inferred by RGI for CAMDA 2025 training and test samples. It includes sample metadata, prediction targets, and gene/SNP-level features labeled by ARO identifiers. See `?rgi_results` for details.
+
+```{r}
+head(rgi_results)
+```
+
+## Assign MIC categories and interpretive phenotypes by genus
+
+This function is part of the `AMRdb package` and uses the column `new_genus` to categorize MIC values and assign interpretive phenotypes. It applies genus-specific breakpoint logic to recategorize `measurement_value` into standardized MIC bins and determine a phenotype label (`Susceptible or Resistant`) for each accession.
+
+```{r, eval=FALSE}
+training_new_mic_db <- process_mic_values(training_db_cleaned, max_mic = 256)
+head(training_new_mic_db)
+```
+
+Also, you can specify `64, 256, or 1024` as values for the `max_mic` argument in `process_mic_values()`. Each option defines a different resolution for binning MIC values and selecting genus-specific breakpoints for phenotype assignment.
+
+- `64` is suitable for low-range MICs with coarse categories
+- `256` offers intermediate granularity
+- `1024` provides high-resolution categorization for datasets with wide MIC ranges
+
+## ML and DL input matrix
+
+To support downstream machine learning and deep learning workflows, AMRdb provides a structured dataset combining phenotype-labeled metadata and resistance gene features. Specifically, we merged:
+
+- `training_db_cleaned` and `test_db_cleaned`, containing curated sample metadata and MIC-based phenotypes
+- The gene family matrix derived from the [Resistance Gene Identifier (RGI) analysis](https://card.mcmaster.ca/analyze/rgi), sourced from `?rgi_results`
+
+The result is a modeling-ready data frame with harmonized metadata and feature-rich gene/SNP-level annotations indexed by SRA accession. This matrix can be used directly for classification, feature selection, or resistance prediction benchmarking.
+
+```{r}
+str(training_and_test_inputfile_complete[, 1:15])
+```
+
+See `?training_and_test_inputfile_complete` for details.
 
 ## Examples
 
-You can find these and more code examples for exploring `palmerpenguins` in `vignette("examples")`.
+To explore the taxonomic diversity present in the AMRdb metadata, we summarize the number of unique SRA accessions per **species** across both the training and test datasets. This overview helps assess sample coverage and guides downstream modeling decisions.
 
+You can find extended code and visualization examples in `vignette("examples")`.
 
+```{r}
+library(tidyverse)
 
+# Count unique accessions per species in the training metadata
+train_counts_cleaned <- training_db_cleaned %>%
+  group_by(scientific_name_new) %>%
+  summarise(trainClean_num_accessions = n_distinct(accession))
 
+# Count unique accessions per species in the testing metadata
+test_counts_cleaned <- test_db_cleaned %>%
+  group_by(scientific_name_new) %>%
+  summarise(testClean_num_accessions = n_distinct(accession))
+
+# Combine the counts by species, keeping all species present in the training set
+combined_counts_completed <- train_counts_cleaned %>%
+  left_join(test_counts_cleaned, by = "scientific_name_new") 
+
+# sum columns
+df_total <- combined_counts_completed %>%
+  summarise(across(where(is.numeric), ~sum(.x, na.rm = TRUE))) %>%
+  mutate(rowname = "Total") %>%
+  select(rowname, everything())
+
+combined_counts_completed <- combined_counts_completed %>%
+  mutate(rowname = rownames(.)) %>%
+  select(rowname, everything()) %>%
+  bind_rows(df_total)
+
+# Display the combined counts table
+combined_counts_completed %>% 
+  select(-rowname)
+```
+
+With training_db_cleaned, you can explore how resistance **phenotypes** vary across species and identify which taxa show diverse or consistent susceptibility patterns. See more examples in `vignette("examples")`.
+
+```{r}
+training_db_cleaned %>%
+  group_by(scientific_name_new, phenotype) %>%
+  summarise(count = n(), .groups = "drop") %>%
+  pivot_wider(
+    names_from = phenotype,
+    values_from = count,
+    values_fill = 0
+  )
+```
+
+You can use the unified input file for ML and DL (`training_and_test_inputfile_complete`) to explore phenotype distribution across species. Labels include `Susceptible, Resistant`, and `?` (for test samples without known outcomes). Below is a species-wise summary found in this file. See extended examples in `vignette("examples")`.
+
+```{r}
+training_and_test_inputfile_complete %>%
+  group_by(scientific_name_new, phenotype_assigned) %>%
+  summarise(count = n(), .groups = "drop") %>%
+  pivot_wider(
+    names_from = phenotype_assigned,
+    values_from = count,
+    values_fill = 0
+  )
+``` 
+
+## Graphs
+
+Antimicrobial resistance becomes easier to interpret when you start visualizing the data. For example:
+
+```{r,  echo=FALSE}
+plot1 <- training_db_cleaned %>%
+  filter(phenotype %in% c("Susceptible", "Resistant")) %>%
+  count(scientific_name_new, phenotype) %>%
+  group_by(scientific_name_new) %>%
+  mutate(prop = n / sum(n)) %>%
+  ggplot(aes(x = reorder(scientific_name_new, -prop), y = prop, fill = phenotype)) +
+  geom_bar(stat = "identity", position = "fill") +
+  labs(
+    x = "Species",
+    y = "Proportion",
+    fill = "Phenotype",
+    title = "Phenotype Distribution Across All Species"
+  ) +
+  theme_classic() +
+  coord_flip()
+
+# Save the plot as a PNG file
+ggsave("man/figures/phenotype_distribution.png", plot = plot1, width = 10, height = 7, dpi = 300)
+```
+
+```{r, echo=FALSE}
+knitr::include_graphics("man/figures/phenotype_distribution.png")
+```
+
+```{r, echo=FALSE}
+plot2 <- training_db_cleaned %>%
+  count(antibiotic, sort = TRUE) %>%
+  top_n(10, wt = n) %>%
+  ggplot(aes(x = reorder(antibiotic, n), y = n)) +
+  geom_bar(stat = "identity", fill = "#56B4E9") +
+  coord_flip() +
+  labs(
+    x = "Antibiotic",
+    y = "Sample Count",
+    title = "Top Antibiotics in the Training Set"
+  ) +
+ theme_classic()
+
+# Save the plot as a PNG file
+ggsave("man/figures/antibiotic_distribution.png", plot = plot2, width = 10, height = 7, dpi = 300)
+```
+
+```{r, echo=FALSE}
+knitr::include_graphics("man/figures/antibiotic_distribution.png")
+```
 
 ## Citation
 
@@ -125,5 +292,3 @@ Please note that the `AMRdb` project is released with a [Contributor Code of Con
 
 
 This package was developed using `r BiocStyle::Biocpkg('biocthis')`.
-
-
