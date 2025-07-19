@@ -7,12 +7,20 @@
 <url><loc>https://eveliacoss.github.io/AMRdb/SUPPORT.html</loc></url>
 <url><loc>https://eveliacoss.github.io/AMRdb/articles/AMRdb.html</loc></url>
 <url><loc>https://eveliacoss.github.io/AMRdb/articles/download.html</loc></url>
+<url><loc>https://eveliacoss.github.io/AMRdb/articles/examples.html</loc></url>
 <url><loc>https://eveliacoss.github.io/AMRdb/articles/index.html</loc></url>
 <url><loc>https://eveliacoss.github.io/AMRdb/authors.html</loc></url>
 <url><loc>https://eveliacoss.github.io/AMRdb/index.html</loc></url>
 <url><loc>https://eveliacoss.github.io/AMRdb/news/index.html</loc></url>
 <url><loc>https://eveliacoss.github.io/AMRdb/reference/antibiograms_db.html</loc></url>
-<url><loc>https://eveliacoss.github.io/AMRdb/reference/compare_sp.html</loc></url>
+<url><loc>https://eveliacoss.github.io/AMRdb/reference/compare_genus.html</loc></url>
 <url><loc>https://eveliacoss.github.io/AMRdb/reference/index.html</loc></url>
+<url><loc>https://eveliacoss.github.io/AMRdb/reference/process_mic_values.html</loc></url>
+<url><loc>https://eveliacoss.github.io/AMRdb/reference/rgi_results.html</loc></url>
+<url><loc>https://eveliacoss.github.io/AMRdb/reference/test_db_cleaned.html</loc></url>
+<url><loc>https://eveliacoss.github.io/AMRdb/reference/test_metadata_db.html</loc></url>
+<url><loc>https://eveliacoss.github.io/AMRdb/reference/training_and_test_inputfile_complete.html</loc></url>
+<url><loc>https://eveliacoss.github.io/AMRdb/reference/training_db_cleaned.html</loc></url>
+<url><loc>https://eveliacoss.github.io/AMRdb/reference/training_metadata_db.html</loc></url>
 </urlset>
 

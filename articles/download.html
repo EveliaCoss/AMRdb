@@ -16,8 +16,7 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="Download raw data from public sources">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Download raw data from public sources">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-DY89LFGER4"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -48,15 +47,19 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><h6 class="dropdown-header" data-toc-skip>Category A</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Title A1</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Title A2</h6></li>
+<li><a class="dropdown-item" href="../articles/examples.html">Examples using ggplot2</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Examples using ComplexHeatmap</h6></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Descriptive statistics</h6></li>
     <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Category B</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Article B1</h6></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Examples using Machine Learning Results</h6></li>
   </ul>
 </li>
-<li class="nav-item"><h6 class="dropdown-header" data-toc-skip>Download</h6></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-download" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Download</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-download">
+<li><a class="dropdown-item" href="../articles/download.html">Download raw data</a></li>
+  </ul>
+</li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -87,7 +90,7 @@
 
       <h1>Download raw data from public sources</h1>
             
-            <h4 data-toc-skip class="date">11 July 2025</h4>
+            <h4 data-toc-skip class="date">18 July 2025</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/EveliaCoss/AMRdb/blob/HEAD/vignettes/download.Rmd" class="external-link"><code>vignettes/download.Rmd</code></a></small>
       <div class="d-none name"><code>download.Rmd</code></div>
@@ -95,6 +98,10 @@
 
     
     
+<p>Load packages</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>((janitor)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <div class="section level2">
 <h2 id="step1---opcion-a-download-data-from-url">STEP1 - Opcion A: Download data from URL<a class="anchor" aria-label="anchor" href="#step1---opcion-a-download-data-from-url"></a>
 </h2>
@@ -104,12 +111,11 @@
 <p>You can download the antibiogram files from <a href="https://www.ebi.ac.uk/ena/browser/home" class="external-link">ENA browser</a>, <a href="https://www.bv-brc.org/" class="external-link">BV-BRC</a>, and <a href="https://www.ncbi.nlm.nih.gov/" class="external-link">NCBI</a> using the reference file
 available on <a href="https://zenodo.org/records/14876710" class="external-link">Zenodo</a>,
 published on July 4, 2025 (version 4).</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://here.r-lib.org/" class="external-link">here</a></span><span class="op">)</span></span>
-<span><span class="co"># Define URL and local destination</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Define URL and local destination</span></span>
 <span><span class="va">anti_url</span> <span class="op">&lt;-</span> <span class="st">"https://zenodo.org/records/15809334/files/antibiograms.tsv.zip"</span></span>
 <span><span class="co"># Replace "inst/extdata" with the actual path to your folder</span></span>
-<span><span class="va">targetfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://here.r-lib.org/reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/extdata"</span>, <span class="st">"antibiograms.tsv.zip"</span><span class="op">)</span> <span class="co"># &lt;- Change this to your own directory</span></span>
+<span><span class="va">targetfile</span> <span class="op">&lt;-</span> <span class="fu">here</span><span class="op">(</span><span class="st">"inst/extdata"</span>, <span class="st">"antibiograms.tsv.zip"</span><span class="op">)</span> <span class="co"># &lt;- Change this to your own directory</span></span>
 <span></span>
 <span><span class="co"># Download the compressed file</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span>url <span class="op">=</span> <span class="va">anti_url</span>, destfile <span class="op">=</span> <span class="va">targetfile</span>, mode <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span>
@@ -118,47 +124,73 @@ published on July 4, 2025 (version 4).</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="va">targetfile</span>, exdir <span class="op">=</span> <span class="st">"inst/extdata"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Import the data into R</span></span>
-<span><span class="va">antibiograms_metadata</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_tsv</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/extdata"</span>,<span class="st">"antibiograms.tsv"</span><span class="op">)</span><span class="op">)</span>  <span class="co"># &lt;- Specify the directory path</span></span></code></pre></div>
+<span><span class="va">antibiograms_metadata</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_tsv</a></span><span class="op">(</span><span class="fu">here</span><span class="op">(</span><span class="st">"inst/extdata"</span>,<span class="st">"antibiograms.tsv"</span><span class="op">)</span><span class="op">)</span>  <span class="co"># &lt;- Specify the directory path</span></span></code></pre></div>
 <p>You can compress the file to <code>.gz</code> format before loading
-it into R. The <code>read_tsv()</code> function supports reading
+it into R. The <code><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_tsv()</a></code> function supports reading
 <code>.gz-compressed</code> files directly.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Compress the file to .gz format</span></span>
-<span><span class="va">original_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://here.r-lib.org/reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/extdata"</span>, <span class="st">"antibiograms.tsv"</span><span class="op">)</span></span>
-<span><span class="va">gz_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://here.r-lib.org/reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/extdata"</span>, <span class="st">"antibiograms.tsv.gz"</span><span class="op">)</span></span>
+<span><span class="va">original_file</span> <span class="op">&lt;-</span> <span class="fu">here</span><span class="op">(</span><span class="st">"inst/extdata"</span>, <span class="st">"antibiograms.tsv"</span><span class="op">)</span></span>
+<span><span class="va">gz_file</span> <span class="op">&lt;-</span> <span class="fu">here</span><span class="op">(</span><span class="st">"inst/extdata"</span>, <span class="st">"antibiograms.tsv.gz"</span><span class="op">)</span></span>
 <span><span class="fu">R.utils</span><span class="fu">::</span><span class="fu"><a href="https://henrikbengtsson.github.io/R.utils/reference/compressFile.html" class="external-link">gzip</a></span><span class="op">(</span><span class="va">original_file</span>, destname <span class="op">=</span> <span class="va">gz_file</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Read the .tsv.gz file into R</span></span>
-<span><span class="va">antibiograms_metadata</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_tsv</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/extdata"</span>, <span class="st">"antibiograms.tsv.gz"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">antibiograms_metadata</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_tsv</a></span><span class="op">(</span><span class="fu">here</span><span class="op">(</span><span class="st">"inst/extdata"</span>, <span class="st">"antibiograms.tsv.gz"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We recommend simplifying column formats using the
 <code>janitor</code> package and standardizing column names as shown
 below.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor" class="external-link">janitor</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Clean antibiogram metadata</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Clean antibiogram metadata</span></span>
 <span><span class="va">antibiograms_db</span> <span class="op">&lt;-</span> <span class="va">antibiograms_metadata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="co"># Standardizes column names: converts them to lowercase,</span></span>
 <span>  <span class="co"># replaces spaces and special characters with underscores</span></span>
 <span>  <span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html" class="external-link">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span></span>
 <span>  <span class="co"># Renames the columns</span></span>
-<span>  <span class="fu">rename</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span></span>
 <span>    accession <span class="op">=</span> <span class="va">reads</span>,</span>
 <span>    scientific_name_Antibiogram <span class="op">=</span> <span class="va">species</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="ncbi-information">NCBI information<a class="anchor" aria-label="anchor" href="#ncbi-information"></a>
-</h3>
-</div>
-<div class="section level3">
 <h3 id="camda-training-dataset">CAMDA training dataset<a class="anchor" aria-label="anchor" href="#camda-training-dataset"></a>
 </h3>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Define the raw URL</span></span>
+<span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/EveliaCoss/AMRdb/devel/inst/extdata/training_dataset.csv"</span></span>
+<span></span>
+<span><span class="co"># Destination filename</span></span>
+<span><span class="va">dest</span> <span class="op">&lt;-</span> <span class="st">"training_dataset.csv"</span></span>
+<span></span>
+<span><span class="co"># Download the file</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">url</span>, <span class="va">dest</span>, mode <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load the data</span></span>
+<span><span class="va">training_metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">dest</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Rename species</span></span>
+<span><span class="va">training_metadata_db</span> <span class="op">&lt;-</span> <span class="va">training_metadata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>scientific_name_CAMDA <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">genus</span>, <span class="va">species</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="camda-test-dataset">CAMDA test dataset<a class="anchor" aria-label="anchor" href="#camda-test-dataset"></a>
 </h3>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Define the raw URL</span></span>
+<span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/EveliaCoss/AMRdb/devel/inst/extdata/testing_template.csv"</span></span>
+<span></span>
+<span><span class="co"># Destination filename</span></span>
+<span><span class="va">dest</span> <span class="op">&lt;-</span> <span class="st">"testing_template.csv"</span></span>
+<span></span>
+<span><span class="co"># Download the file</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">url</span>, <span class="va">dest</span>, mode <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load the data</span></span>
+<span><span class="va">test_metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">dest</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Rename species</span></span>
+<span><span class="va">test_metadata_db</span> <span class="op">&lt;-</span> <span class="va">test_metadata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>scientific_name_CAMDA <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">genus</span>, <span class="va">species</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>antibiotic <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">antibiotic</span> <span class="op">==</span> <span class="st">"tetracycline"</span>, <span class="st">"TET"</span>, <span class="va">antibiotic</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -169,57 +201,121 @@ below.</p>
 </h3>
 <p>Download antibiogram files from <a href="https://www.ebi.ac.uk/ena/browser/home" class="external-link">ENA browser</a>, <a href="https://www.bv-brc.org/" class="external-link">BV-BRC</a>, and <a href="https://www.ncbi.nlm.nih.gov/" class="external-link">NCBI</a> via the <a href="https://zenodo.org/records/14876710" class="external-link">Zenodo</a> reference (version
 4, July 4, 2025).</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package<span class="op">=</span><span class="st">"AMRdb"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://eveliacoss.github.io/AMRdb/">AMRdb</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package<span class="op">=</span><span class="st">"AMRdb"</span><span class="op">)</span></span>
 <span><span class="co"># Read the .tsv.gz file into R</span></span>
 <span><span class="va">antibiograms_metadata</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_tsv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">dir</span>, <span class="st">"antibiograms.tsv.gz"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="ncbi-information-1">NCBI information<a class="anchor" aria-label="anchor" href="#ncbi-information-1"></a>
-</h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">SRAdb</span><span class="op">)</span></span>
-<span><span class="va">sqlfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, package<span class="op">=</span><span class="st">'SRAdb'</span><span class="op">)</span>, <span class="st">'SRAmetadb_demo.sqlite'</span><span class="op">)</span></span>
-<span><span class="co"># Increase timeout to 1 hour (3600 seconds)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>timeout <span class="op">=</span> <span class="fl">3600</span><span class="op">)</span></span>
-<span><span class="co"># Download</span></span>
-<span><span class="va">sqlfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SRAdb/man/getSRAdbFile.html" class="external-link">getSRAdbFile</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># </span></span>
-<span><span class="va">dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package<span class="op">=</span><span class="st">"AMRdb"</span><span class="op">)</span></span>
-<span><span class="va">antibiograms_metadata</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_tsv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">dir</span>, <span class="st">"sra-metadata.csv"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
 <h3 id="camda-training-dataset-1">CAMDA training dataset<a class="anchor" aria-label="anchor" href="#camda-training-dataset-1"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package<span class="op">=</span><span class="st">"AMRdb"</span><span class="op">)</span></span>
-<span><span class="va">training_metadata</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_tsv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">dir</span>, <span class="st">"training_dataset.csv"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">training_metadata</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">dir</span>, <span class="st">"training_dataset.csv"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># Rename species</span></span>
 <span><span class="va">training_metadata_db</span> <span class="op">&lt;-</span> <span class="va">training_metadata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>scientific_name_CAMDA <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">genus</span>, <span class="va">species</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>scientific_name_CAMDA <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">genus</span>, <span class="va">species</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># Rows: 6144 Columns: 16── Column</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="camda-test-dataset-1">CAMDA test dataset<a class="anchor" aria-label="anchor" href="#camda-test-dataset-1"></a>
 </h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package<span class="op">=</span><span class="st">"AMRdb"</span><span class="op">)</span></span>
+<p>The data were provided by CAMDA as part of the 2025 challenge focused
+on phenotype and MIC prediction using publicly available datasets from 9
+bacterial species. However, we have identified that the test dataset
+includes duplicated entries or information already present in the
+training dataset. This redundancy may affect model evaluation and should
+be carefully examined during preprocessing.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load CAMDA test dataset</span></span>
+<span><span class="va">dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package<span class="op">=</span><span class="st">"AMRdb"</span><span class="op">)</span></span>
 <span><span class="co"># Read the .csv file into R</span></span>
-<span><span class="va">test_metadata</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_tsv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">dir</span>, <span class="st">"testing_template.csv"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">test_metadata</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">dir</span>, <span class="st">"testing_template.csv"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># Rename species</span></span>
 <span><span class="va">test_metadata_db</span> <span class="op">&lt;-</span> <span class="va">test_metadata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>scientific_name_CAMDA <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">genus</span>, <span class="va">species</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>scientific_name_CAMDA <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">genus</span>, <span class="va">species</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>antibiotic <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">antibiotic</span> <span class="op">==</span> <span class="st">"tetracycline"</span>, <span class="st">"TET"</span>, <span class="va">antibiotic</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># Rows: 5345 Columns: 6── Column</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="ncbi-information">NCBI information<a class="anchor" aria-label="anchor" href="#ncbi-information"></a>
+</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># Read the .csv file into R</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>dir <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="at">package=</span><span class="st">"AMRdb"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>sra_metadata_db <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="fu">file.path</span>(dir, <span class="st">"sra-metadata.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>  <span class="co"># Standardizes column names: converts them to lowercase,</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  <span class="co"># replaces spaces and special characters with underscores</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>  <span class="co"># Select columns</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>  <span class="fu">select</span>(run, library_strategy, library_selection, library_source, platform,</span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>         model, bio_project, bio_sample, scientific_name) <span class="sc">%&gt;%</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>  <span class="co"># Renames columns</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">accession =</span> run, <span class="at">scientific_name_complete =</span> scientific_name)</span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co"># Reduce name</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>sra_metadata_db<span class="sc">$</span>scientific_name_NCBI <span class="ot">&lt;-</span> <span class="fu">word</span>(sra_metadata_db<span class="sc">$</span>scientific_name_complete, <span class="dv">1</span>, <span class="dv">2</span>)</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="genome-taxonomy-database-gtdb">Genome taxonomy database (GTDB)<a class="anchor" aria-label="anchor" href="#genome-taxonomy-database-gtdb"></a>
+</h3>
+<p>The information extracted from the Genome Taxonomy Database (GTDB) is
+linked to the accession IDs provided in both the CAMDA training and test
+datasets</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package<span class="op">=</span><span class="st">"AMRdb"</span><span class="op">)</span></span>
+<span><span class="co"># test information</span></span>
+<span><span class="va">test_gtdb_result</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">dir</span>, <span class="st">"test.ani.csv"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># training information</span></span>
+<span><span class="va">train_gtdb_result</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">dir</span>, <span class="st">"train.ani.csv"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="compare-to-package-data">Compare to package data<a class="anchor" aria-label="anchor" href="#compare-to-package-data"></a>
 </h2>
 <p>Compare to <code><a href="../reference/antibiograms_db.html">?antibiograms_db</a></code>:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://eveliacoss.github.io/AMRdb/">AMRdb</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">antibiograms_db</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"AMRdb"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">antibiograms_db</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      biosample sra_biosample scientific_name_Antibiogram       antibiotic</span></span>
+<span><span class="co">#&gt; 1 SAMN01163409     SRS362631        Enterobacter cloacae     tetracycline</span></span>
+<span><span class="co">#&gt; 2 SAMN01163409     SRS362631        Enterobacter cloacae  chloramphenicol</span></span>
+<span><span class="co">#&gt; 3 SAMN01163409     SRS362631        Enterobacter cloacae       ampicillin</span></span>
+<span><span class="co">#&gt; 4 SAMN01163409     SRS362631        Enterobacter cloacae       gentamicin</span></span>
+<span><span class="co">#&gt; 5 SAMN01163409     SRS362631        Enterobacter cloacae         colistin</span></span>
+<span><span class="co">#&gt; 6 SAMN01163409     SRS362631        Enterobacter cloacae sulfamethoxazole</span></span>
+<span><span class="co">#&gt;      phenotype measurement_sign measurement_value measurement_units</span></span>
+<span><span class="co">#&gt; 1    resistant               ==                10                mm</span></span>
+<span><span class="co">#&gt; 2    resistant               ==                12                mm</span></span>
+<span><span class="co">#&gt; 3    resistant               ==                 6                mm</span></span>
+<span><span class="co">#&gt; 4  susceptible               ==                20                mm</span></span>
+<span><span class="co">#&gt; 5  susceptible               ==                13                mm</span></span>
+<span><span class="co">#&gt; 6 intermediate               ==                14                mm</span></span>
+<span><span class="co">#&gt;    typing_method   typing_platform standard</span></span>
+<span><span class="co">#&gt; 1 disk diffusion Vitek GM-NEG card     CLSI</span></span>
+<span><span class="co">#&gt; 2 disk diffusion Vitek GM-NEG card     CLSI</span></span>
+<span><span class="co">#&gt; 3 disk diffusion Vitek GM-NEG card     CLSI</span></span>
+<span><span class="co">#&gt; 4 disk diffusion Vitek GM-NEG card     CLSI</span></span>
+<span><span class="co">#&gt; 5 disk diffusion Vitek GM-NEG card     CLSI</span></span>
+<span><span class="co">#&gt; 6 disk diffusion Vitek GM-NEG card     CLSI</span></span>
+<span><span class="co">#&gt;                                                                                             genomes</span></span>
+<span><span class="co">#&gt; 1 BVBRC_550.2163 ftp://ftp.sra.ebi.ac.uk/vol1/analysis/ERZ363/ERZ3637173/SAMN01163409.contigs.fa.gz</span></span>
+<span><span class="co">#&gt; 2 BVBRC_550.2163 ftp://ftp.sra.ebi.ac.uk/vol1/analysis/ERZ363/ERZ3637173/SAMN01163409.contigs.fa.gz</span></span>
+<span><span class="co">#&gt; 3 BVBRC_550.2163 ftp://ftp.sra.ebi.ac.uk/vol1/analysis/ERZ363/ERZ3637173/SAMN01163409.contigs.fa.gz</span></span>
+<span><span class="co">#&gt; 4 BVBRC_550.2163 ftp://ftp.sra.ebi.ac.uk/vol1/analysis/ERZ363/ERZ3637173/SAMN01163409.contigs.fa.gz</span></span>
+<span><span class="co">#&gt; 5 BVBRC_550.2163 ftp://ftp.sra.ebi.ac.uk/vol1/analysis/ERZ363/ERZ3637173/SAMN01163409.contigs.fa.gz</span></span>
+<span><span class="co">#&gt; 6 BVBRC_550.2163 ftp://ftp.sra.ebi.ac.uk/vol1/analysis/ERZ363/ERZ3637173/SAMN01163409.contigs.fa.gz</span></span>
+<span><span class="co">#&gt;              accession                       read_type</span></span>
+<span><span class="co">#&gt; 1 SRR4105460 SRR568037 PAIRED_ILLUMINA PAIRED_ILLUMINA</span></span>
+<span><span class="co">#&gt; 2 SRR4105460 SRR568037 PAIRED_ILLUMINA PAIRED_ILLUMINA</span></span>
+<span><span class="co">#&gt; 3 SRR4105460 SRR568037 PAIRED_ILLUMINA PAIRED_ILLUMINA</span></span>
+<span><span class="co">#&gt; 4 SRR4105460 SRR568037 PAIRED_ILLUMINA PAIRED_ILLUMINA</span></span>
+<span><span class="co">#&gt; 5 SRR4105460 SRR568037 PAIRED_ILLUMINA PAIRED_ILLUMINA</span></span>
+<span><span class="co">#&gt; 6 SRR4105460 SRR568037 PAIRED_ILLUMINA PAIRED_ILLUMINA</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

@@ -16,8 +16,7 @@
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
-<meta property="og:title" content="Curated Resource for Antimicrobial Resistance Data Exploration">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Curated Resource for Antimicrobial Resistance Data Exploration">
 <meta name="description" content="AMDdb is an R data package that integrates standardized antibiograms and genomic metadata obtained from public repositories such as ENA, BV-BRC, and NCBI, with a focus on the study of antimicrobial resistance (AMR). Its goal is to support reproducible analysis of phenotypic and genotypic resistance profiles through curated datasets and auxiliary functions. This resource is intended for researchers, epidemiologists, and bioinformaticians interested in exploring resistance patterns, conducting comparative studies, and enhancing AMR surveillance using structured clinical and genomic information.">
 <meta property="og:description" content="AMDdb is an R data package that integrates standardized antibiograms and genomic metadata obtained from public repositories such as ENA, BV-BRC, and NCBI, with a focus on the study of antimicrobial resistance (AMR). Its goal is to support reproducible analysis of phenotypic and genotypic resistance profiles through curated datasets and auxiliary functions. This resource is intended for researchers, epidemiologists, and bioinformaticians interested in exploring resistance patterns, conducting comparative studies, and enhancing AMR surveillance using structured clinical and genomic information.">
 <meta property="og:image" content="https://eveliacoss.github.io/AMRdb/reference/figures/AMRdb-logo2.png">
@@ -52,15 +51,19 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><h6 class="dropdown-header" data-toc-skip>Category A</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Title A1</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Title A2</h6></li>
+<li><a class="dropdown-item" href="articles/examples.html">Examples using ggplot2</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Examples using ComplexHeatmap</h6></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Descriptive statistics</h6></li>
     <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Category B</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Article B1</h6></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Examples using Machine Learning Results</h6></li>
   </ul>
 </li>
-<li class="nav-item"><h6 class="dropdown-header" data-toc-skip>Download</h6></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-download" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Download</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-download">
+<li><a class="dropdown-item" href="articles/download.html">Download raw data</a></li>
+  </ul>
+</li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -123,62 +126,285 @@
 <h2 id="about-the-data">About the data<a class="anchor" aria-label="anchor" href="#about-the-data"></a>
 </h2>
 <p>The data included in this package are sourced from publicly available repositories such as the <a href="https://www.ebi.ac.uk/ena/browser/home" class="external-link">ENA browser</a>, <a href="https://www.bv-brc.org/" class="external-link">BV-BRC</a>, and <a href="https://www.ncbi.nlm.nih.gov/" class="external-link">NCBI</a>, offering a harmonized foundation for predictive modeling and downstream resistance profiling.</p>
-<p>The <code>AMRdb</code> package contains X datasets:</p>
+<p>The <code>AMRdb</code> package contains 4 datasets:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/" class="external-link">palmerpenguins</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">'palmerpenguins'</span><span class="op">)</span></span></code></pre></div>
-<p>One is called <code>antibiograms</code>, and is a simplified version of the raw data; see <code>?antibiograms</code> for more info:</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://eveliacoss.github.io/AMRdb/">AMRdb</a></span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="raw-metadata">Raw metadata<a class="anchor" aria-label="anchor" href="#raw-metadata"></a>
+</h3>
+<p>The first dataset is <code>training_metadata_db</code>, which contains the full unprocessed metadata as originally downloaded from the CAMDA 2025 training set. It preserves all column names, formats, and variable structures for traceability and cross-referencing. This dataset complements the cleaned version and supports reproducibility and model auditability; see <code><a href="reference/training_metadata_db.html">?training_metadata_db</a></code> for more details.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 8</span></span>
-<span><span class="co">#&gt;   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 Adelie  Torgersen           39.1          18.7               181        3750</span></span>
-<span><span class="co">#&gt; 2 Adelie  Torgersen           39.5          17.4               186        3800</span></span>
-<span><span class="co">#&gt; 3 Adelie  Torgersen           40.3          18                 195        3250</span></span>
-<span><span class="co">#&gt; 4 Adelie  Torgersen           NA            NA                  NA          NA</span></span>
-<span><span class="co">#&gt; 5 Adelie  Torgersen           36.7          19.3               193        3450</span></span>
-<span><span class="co">#&gt; 6 Adelie  Torgersen           39.3          20.6               190        3650</span></span>
-<span><span class="co">#&gt; # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</span></span></code></pre></div>
-<p>The second dataset is <code>X</code>, and contains all the variables and original names as downloaded; see <code><a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins_raw.html" class="external-link">?penguins_raw</a></code> for more info.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">penguins_raw</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">training_metadata_db</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 17</span></span>
-<span><span class="co">#&gt;   studyName `Sample Number` Species          Region Island Stage `Individual ID`</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;          </span></span>
-<span><span class="co">#&gt; 1 PAL0708                 1 Adelie Penguin … Anvers Torge… Adul… N1A1           </span></span>
-<span><span class="co">#&gt; 2 PAL0708                 2 Adelie Penguin … Anvers Torge… Adul… N1A2           </span></span>
-<span><span class="co">#&gt; 3 PAL0708                 3 Adelie Penguin … Anvers Torge… Adul… N2A1           </span></span>
-<span><span class="co">#&gt; 4 PAL0708                 4 Adelie Penguin … Anvers Torge… Adul… N2A2           </span></span>
-<span><span class="co">#&gt; 5 PAL0708                 5 Adelie Penguin … Anvers Torge… Adul… N3A1           </span></span>
-<span><span class="co">#&gt; 6 PAL0708                 6 Adelie Penguin … Anvers Torge… Adul… N3A2           </span></span>
-<span><span class="co">#&gt; # ℹ 10 more variables: `Clutch Completion` &lt;chr&gt;, `Date Egg` &lt;date&gt;,</span></span>
-<span><span class="co">#&gt; #   `Culmen Length (mm)` &lt;dbl&gt;, `Culmen Depth (mm)` &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   `Flipper Length (mm)` &lt;dbl&gt;, `Body Mass (g)` &lt;dbl&gt;, Sex &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   `Delta 15 N (o/oo)` &lt;dbl&gt;, `Delta 13 C (o/oo)` &lt;dbl&gt;, Comments &lt;chr&gt;</span></span></code></pre></div>
-<p>Both datasets contain data for 344 penguins. There are 3 different species of penguins in this dataset, collected from 3 islands in the Palmer Archipelago, Antarctica.</p>
+<span><span class="co">#&gt;   genus     species     accession  phenotype   antibiotic measurement_sign</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;           </span></span>
+<span><span class="co">#&gt; 1 Neisseria gonorrhoeae SRR1661238 Susceptible TET        &lt;NA&gt;            </span></span>
+<span><span class="co">#&gt; 2 Neisseria gonorrhoeae SRR5827180 Susceptible TET        &lt;NA&gt;            </span></span>
+<span><span class="co">#&gt; 3 Neisseria gonorrhoeae SRR5827125 Susceptible TET        &lt;NA&gt;            </span></span>
+<span><span class="co">#&gt; 4 Neisseria gonorrhoeae SRR5827026 Susceptible TET        &lt;NA&gt;            </span></span>
+<span><span class="co">#&gt; 5 Neisseria gonorrhoeae SRR5827271 Susceptible TET        &lt;NA&gt;            </span></span>
+<span><span class="co">#&gt; 6 Neisseria gonorrhoeae SRR5827340 Susceptible TET        &lt;NA&gt;            </span></span>
+<span><span class="co">#&gt; # ℹ 11 more variables: measurement_value &lt;dbl&gt;, measurement_unit &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   laboratory_typing_method &lt;chr&gt;, laboratory_typing_platform &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   testing_standard &lt;chr&gt;, testing_standard_year &lt;chr&gt;, publication &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   isolation_source &lt;chr&gt;, isolation_country &lt;chr&gt;, collection_date &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   scientific_name_CAMDA &lt;chr&gt;</span></span></code></pre></div>
+<p>The second dataset is <code>test_metadata_db</code>, which includes all original variables and column names exactly as provided in the CAMDA 2025 test set.It serves as the benchmark data for validating ML and DL models built during the challenge. For details on structure and usage, see <code><a href="reference/test_metadata_db.html">?test_metadata_db</a></code>.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">test_metadata_db</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 7</span></span>
+<span><span class="co">#&gt;   genus      species    accession  phenotype antibiotic measurement_value</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;            </span></span>
+<span><span class="co">#&gt; 1 Klebsiella pneumoniae SRR5386858 ?         GEN        ?                </span></span>
+<span><span class="co">#&gt; 2 Klebsiella pneumoniae SRR5386458 ?         GEN        ?                </span></span>
+<span><span class="co">#&gt; 3 Klebsiella pneumoniae SRR5386457 ?         GEN        ?                </span></span>
+<span><span class="co">#&gt; 4 Klebsiella pneumoniae SRR5386456 ?         GEN        ?                </span></span>
+<span><span class="co">#&gt; 5 Klebsiella pneumoniae SRR5386454 ?         GEN        ?                </span></span>
+<span><span class="co">#&gt; 6 Klebsiella pneumoniae SRR5386452 ?         GEN        ?                </span></span>
+<span><span class="co">#&gt; # ℹ 1 more variable: scientific_name_CAMDA &lt;chr&gt;</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="cleaned-metadata">Cleaned metadata<a class="anchor" aria-label="anchor" href="#cleaned-metadata"></a>
+</h3>
+<p>The third dataset is <code>training_db_cleaned</code>, which contains curated and preprocessed metadata from the CAMDA 2025 training set (<code>training_metadata_db</code>). Species-level annotations were verified using the Genome Taxonomy Database (GTDB), based on Average Nucleotide Identity (ANI) calculated for each SRA accession. Two new columns were added:</p>
+<ul>
+<li>
+<code>scientific_name_new</code>, the corrected species name inferred from GTDB</li>
+<li>
+<code>new_genus</code>, the revised genus assignment, which can be used in downstream steps to reassess MIC interpretations. See ?training_db_cleaned for full details.</li>
+</ul>
+<p>All relevant variables have been standardized for downstream analysis; see <code><a href="reference/training_db_cleaned.html">?training_db_cleaned</a></code> for full details.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
-<span><span class="co">#&gt; tibble [344 × 8] (S3: tbl_df/tbl/data.frame)</span></span>
-<span><span class="co">#&gt;  $ species          : Factor w/ 3 levels "Adelie","Chinstrap",..: 1 1 1 1 1 1 1 1 1 1 ...</span></span>
-<span><span class="co">#&gt;  $ island           : Factor w/ 3 levels "Biscoe","Dream",..: 3 3 3 3 3 3 3 3 3 3 ...</span></span>
-<span><span class="co">#&gt;  $ bill_length_mm   : num [1:344] 39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...</span></span>
-<span><span class="co">#&gt;  $ bill_depth_mm    : num [1:344] 18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...</span></span>
-<span><span class="co">#&gt;  $ flipper_length_mm: int [1:344] 181 186 195 NA 193 190 181 195 193 190 ...</span></span>
-<span><span class="co">#&gt;  $ body_mass_g      : int [1:344] 3750 3800 3250 NA 3450 3650 3625 4675 3475 4250 ...</span></span>
-<span><span class="co">#&gt;  $ sex              : Factor w/ 2 levels "female","male": 2 1 1 NA 1 2 1 2 NA NA ...</span></span>
-<span><span class="co">#&gt;  $ year             : int [1:344] 2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">training_db_cleaned</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 10</span></span>
+<span><span class="co">#&gt;   genus     species    scientific_name_new accession genome phenotype antibiotic</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;               &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt; 1 Neisseria gonorrhoe… Neisseria gonorrho… SRR16612… ENA_S… Suscepti… TET       </span></span>
+<span><span class="co">#&gt; 2 Neisseria gonorrhoe… Neisseria gonorrho… SRR58271… ENA_S… Suscepti… TET       </span></span>
+<span><span class="co">#&gt; 3 Neisseria gonorrhoe… Neisseria gonorrho… SRR58271… ENA_S… Suscepti… TET       </span></span>
+<span><span class="co">#&gt; 4 Neisseria gonorrhoe… Neisseria gonorrho… SRR58270… ENA_S… Suscepti… TET       </span></span>
+<span><span class="co">#&gt; 5 Neisseria gonorrhoe… Neisseria gonorrho… SRR58272… ENA_S… Suscepti… TET       </span></span>
+<span><span class="co">#&gt; 6 Neisseria gonorrhoe… Neisseria gonorrho… SRR58273… ENA_S… Suscepti… TET       </span></span>
+<span><span class="co">#&gt; # ℹ 3 more variables: measurement_value &lt;dbl&gt;, ani &lt;dbl&gt;, new_genus &lt;chr&gt;</span></span></code></pre></div>
+<p>The fourth dataset is <code>test_db_cleaned</code>, derived from the CAMDA 2025 test set (<code>test_metadata_db</code>). Accessions shared with the training set (<code>training_metadata_db</code>) were removed to avoid data leakage. GTDB-based species validation was performed to verify taxonomic annotations. A new column, <code>scientific_name_new</code>, provides the corrected species name for each sample based on ANI profiling. See ?test_db_cleaned for more information.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">test_db_cleaned</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 9</span></span>
+<span><span class="co">#&gt;   genus      species   scientific_name_new accession genome phenotype antibiotic</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;               &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt; 1 Klebsiella pneumoni… Klebsiella pneumon… SRR53868… ENA_S… ?         GEN       </span></span>
+<span><span class="co">#&gt; 2 Klebsiella pneumoni… Klebsiella pneumon… SRR53864… ENA_S… ?         GEN       </span></span>
+<span><span class="co">#&gt; 3 Klebsiella pneumoni… Klebsiella pneumon… SRR53864… ENA_S… ?         GEN       </span></span>
+<span><span class="co">#&gt; 4 Klebsiella pneumoni… Klebsiella pneumon… SRR53864… ENA_S… ?         GEN       </span></span>
+<span><span class="co">#&gt; 5 Klebsiella pneumoni… Klebsiella pneumon… SRR53864… ENA_S… ?         GEN       </span></span>
+<span><span class="co">#&gt; 6 Klebsiella pneumoni… Klebsiella pneumon… SRR53864… ENA_S… ?         GEN       </span></span>
+<span><span class="co">#&gt; # ℹ 2 more variables: measurement_value &lt;chr&gt;, ani &lt;dbl&gt;</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="public-metadata">Public metadata<a class="anchor" aria-label="anchor" href="#public-metadata"></a>
+</h3>
+<p>The fifth dataset, <code>antibiograms_db</code>, contains public antimicrobial susceptibility data linked to SRA accessions from both the CAMDA 2025 training and test sets. Records were retrieved from ENA, BV-BRC, and NCBI using a Zenodo reference (version 4, July 4, 2025); see <code><a href="reference/antibiograms_db.html">?antibiograms_db</a></code> for more info:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">antibiograms_db</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 14</span></span>
+<span><span class="co">#&gt;   biosample    sra_biosample scientific_name_Antibiogram antibiotic    phenotype</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;         &lt;chr&gt;                       &lt;chr&gt;         &lt;chr&gt;    </span></span>
+<span><span class="co">#&gt; 1 SAMN01163409 SRS362631     Enterobacter cloacae        tetracycline  resistant</span></span>
+<span><span class="co">#&gt; 2 SAMN01163409 SRS362631     Enterobacter cloacae        chlorampheni… resistant</span></span>
+<span><span class="co">#&gt; 3 SAMN01163409 SRS362631     Enterobacter cloacae        ampicillin    resistant</span></span>
+<span><span class="co">#&gt; 4 SAMN01163409 SRS362631     Enterobacter cloacae        gentamicin    suscepti…</span></span>
+<span><span class="co">#&gt; 5 SAMN01163409 SRS362631     Enterobacter cloacae        colistin      suscepti…</span></span>
+<span><span class="co">#&gt; 6 SAMN01163409 SRS362631     Enterobacter cloacae        sulfamethoxa… intermed…</span></span>
+<span><span class="co">#&gt; # ℹ 9 more variables: measurement_sign &lt;chr&gt;, measurement_value &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   measurement_units &lt;chr&gt;, typing_method &lt;chr&gt;, typing_platform &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   standard &lt;chr&gt;, genomes &lt;chr&gt;, accession &lt;chr&gt;, read_type &lt;chr&gt;</span></span></code></pre></div>
+<p>The sixth dataset, <code>rgi_results</code>, contains resistance gene features inferred by RGI for CAMDA 2025 training and test samples. It includes sample metadata, prediction targets, and gene/SNP-level features labeled by ARO identifiers. See <code><a href="reference/rgi_results.html">?rgi_results</a></code> for details.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rgi_results</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 1,076</span></span>
+<span><span class="co">#&gt;   genus          species     accession phenotype    antibiotic measurement_value</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;            </span></span>
+<span><span class="co">#&gt; 1 Neisseria      gonorrhoeae DRR124693 Intermediate TET        0.5              </span></span>
+<span><span class="co">#&gt; 2 Staphylococcus aureus      DRR170693 Intermediate ERY        4.0              </span></span>
+<span><span class="co">#&gt; 3 Staphylococcus aureus      DRR170697 Intermediate ERY        4.0              </span></span>
+<span><span class="co">#&gt; 4 Staphylococcus aureus      DRR170701 Intermediate ERY        4.0              </span></span>
+<span><span class="co">#&gt; 5 Streptococcus  pneumoniae  ERR016633 Resistant    ERY        256.0            </span></span>
+<span><span class="co">#&gt; 6 Streptococcus  pneumoniae  ERR016635 Resistant    ERY        256.0            </span></span>
+<span><span class="co">#&gt; # ℹ 1,070 more variables: categoria_recodificada &lt;dbl&gt;, aro3000464_a121d &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   aro3000464_g120k &lt;dbl&gt;, aro3003930_v57m &lt;dbl&gt;, aro3004833_l421p &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   aro3000816 &lt;dbl&gt;, aro3003961 &lt;dbl&gt;, aro3000533 &lt;dbl&gt;, aro3000535 &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   aro3004832_a311v &lt;dbl&gt;, aro3004832_g545s &lt;dbl&gt;, aro3004832_i312m &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   aro3004832_f504l &lt;dbl&gt;, aro3004832_t483s &lt;dbl&gt;, aro3004832_v316t &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   aro3004832_a510v &lt;dbl&gt;, aro3004832_n512y &lt;dbl&gt;, aro3003928_s91f &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   aro3000999 &lt;dbl&gt;, aro3003929_s87r &lt;dbl&gt;, aro3000186 &lt;dbl&gt;, …</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="assign-mic-categories-and-interpretive-phenotypes-by-genus">Assign MIC categories and interpretive phenotypes by genus<a class="anchor" aria-label="anchor" href="#assign-mic-categories-and-interpretive-phenotypes-by-genus"></a>
+</h2>
+<p>This function is part of the <code>AMRdb package</code> and uses the column <code>new_genus</code> to categorize MIC values and assign interpretive phenotypes. It applies genus-specific breakpoint logic to recategorize <code>measurement_value</code> into standardized MIC bins and determine a phenotype label (<code>Susceptible or Resistant</code>) for each accession.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">training_new_mic_db</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/process_mic_values.html">process_mic_values</a></span><span class="op">(</span><span class="va">training_db_cleaned</span>, max_mic <span class="op">=</span> <span class="fl">256</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">training_new_mic_db</span><span class="op">)</span></span></code></pre></div>
+<p>Also, you can specify <code>64, 256, or 1024</code> as values for the <code>max_mic</code> argument in <code><a href="reference/process_mic_values.html">process_mic_values()</a></code>. Each option defines a different resolution for binning MIC values and selecting genus-specific breakpoints for phenotype assignment.</p>
+<ul>
+<li>
+<code>64</code> is suitable for low-range MICs with coarse categories</li>
+<li>
+<code>256</code> offers intermediate granularity</li>
+<li>
+<code>1024</code> provides high-resolution categorization for datasets with wide MIC ranges</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="ml-and-dl-input-matrix">ML and DL input matrix<a class="anchor" aria-label="anchor" href="#ml-and-dl-input-matrix"></a>
+</h2>
+<p>To support downstream machine learning and deep learning workflows, AMRdb provides a structured dataset combining phenotype-labeled metadata and resistance gene features. Specifically, we merged:</p>
+<ul>
+<li>
+<code>training_db_cleaned</code> and <code>test_db_cleaned</code>, containing curated sample metadata and MIC-based phenotypes</li>
+<li>The gene family matrix derived from the <a href="https://card.mcmaster.ca/analyze/rgi" class="external-link">Resistance Gene Identifier (RGI) analysis</a>, sourced from <code><a href="reference/rgi_results.html">?rgi_results</a></code>
+</li>
+</ul>
+<p>The result is a modeling-ready data frame with harmonized metadata and feature-rich gene/SNP-level annotations indexed by SRA accession. This matrix can be used directly for classification, feature selection, or resistance prediction benchmarking.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">training_and_test_inputfile_complete</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">15</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; tibble [9,775 × 15] (S3: tbl_df/tbl/data.frame)</span></span>
+<span><span class="co">#&gt;  $ genus              : chr [1:9775] "Neisseria" "Neisseria" "Neisseria" "Neisseria" ...</span></span>
+<span><span class="co">#&gt;  $ species            : chr [1:9775] "gonorrhoeae" "gonorrhoeae" "gonorrhoeae" "gonorrhoeae" ...</span></span>
+<span><span class="co">#&gt;  $ scientific_name_new: chr [1:9775] "Neisseria gonorrhoeae" "Neisseria gonorrhoeae" "Neisseria gonorrhoeae" "Neisseria gonorrhoeae" ...</span></span>
+<span><span class="co">#&gt;  $ accession          : chr [1:9775] "SRR1661238" "SRR5827180" "SRR5827125" "SRR5827026" ...</span></span>
+<span><span class="co">#&gt;  $ genome             : chr [1:9775] "ENA_SAMN03201584" "ENA_SAMN07351025" "ENA_SAMN07351011" "ENA_SAMN07351174" ...</span></span>
+<span><span class="co">#&gt;  $ phenotype          : chr [1:9775] "Susceptible" "Susceptible" "Susceptible" "Susceptible" ...</span></span>
+<span><span class="co">#&gt;  $ antibiotic         : chr [1:9775] "TET" "TET" "TET" "TET" ...</span></span>
+<span><span class="co">#&gt;  $ measurement_value  : chr [1:9775] "0.25" "0.12" "0.12" "0.12" ...</span></span>
+<span><span class="co">#&gt;  $ ani                : num [1:9775] 0.998 0.997 0.997 0.998 0.997 0.998 0.997 0.997 0.997 0.997 ...</span></span>
+<span><span class="co">#&gt;  $ type               : chr [1:9775] "training" "training" "training" "training" ...</span></span>
+<span><span class="co">#&gt;  $ phenotype_assigned : chr [1:9775] "Susceptible" "Susceptible" "Susceptible" "Susceptible" ...</span></span>
+<span><span class="co">#&gt;  $ recategorized_mic  : Factor w/ 13 levels "0.06","0.12",..: 3 2 2 2 3 2 1 3 1 2 ...</span></span>
+<span><span class="co">#&gt;  $ aro3000464_a121d   : num [1:9775] 0 0 0 0 0 0 1 1 0 0 ...</span></span>
+<span><span class="co">#&gt;  $ aro3000464_g120k   : num [1:9775] 0 0 0 0 0 0 1 1 0 0 ...</span></span>
+<span><span class="co">#&gt;  $ aro3003930_v57m    : num [1:9775] 0 0 0 0 0 0 1 1 1 0 ...</span></span></code></pre></div>
+<p>See <code><a href="reference/training_and_test_inputfile_complete.html">?training_and_test_inputfile_complete</a></code> for details.</p>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
-<p>You can find these and more code examples for exploring <code>palmerpenguins</code> in <code>vignette("examples")</code>.</p>
+<p>To explore the taxonomic diversity present in the AMRdb metadata, we summarize the number of unique SRA accessions per <strong>species</strong> across both the training and test datasets. This overview helps assess sample coverage and guides downstream modeling decisions.</p>
+<p>You can find extended code and visualization examples in <code><a href="articles/examples.html">vignette("examples")</a></code>.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Count unique accessions per species in the training metadata</span></span>
+<span><span class="va">train_counts_cleaned</span> <span class="op">&lt;-</span> <span class="va">training_db_cleaned</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">scientific_name_new</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>trainClean_num_accessions <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html" class="external-link">n_distinct</a></span><span class="op">(</span><span class="va">accession</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Count unique accessions per species in the testing metadata</span></span>
+<span><span class="va">test_counts_cleaned</span> <span class="op">&lt;-</span> <span class="va">test_db_cleaned</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">scientific_name_new</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>testClean_num_accessions <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html" class="external-link">n_distinct</a></span><span class="op">(</span><span class="va">accession</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Combine the counts by species, keeping all species present in the training set</span></span>
+<span><span class="va">combined_counts_completed</span> <span class="op">&lt;-</span> <span class="va">train_counts_cleaned</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">test_counts_cleaned</span>, by <span class="op">=</span> <span class="st">"scientific_name_new"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># sum columns</span></span>
+<span><span class="va">df_total</span> <span class="op">&lt;-</span> <span class="va">combined_counts_completed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html" class="external-link">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">.x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rowname <span class="op">=</span> <span class="st">"Total"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">rowname</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">combined_counts_completed</span> <span class="op">&lt;-</span> <span class="va">combined_counts_completed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rowname <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">rowname</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="va">df_total</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Display the combined counts table</span></span>
+<span><span class="va">combined_counts_completed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">rowname</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 15 × 3</span></span>
+<span><span class="co">#&gt;    scientific_name_new        trainClean_num_accessions testClean_num_accessions</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;                                          &lt;int&gt;                    &lt;int&gt;</span></span>
+<span><span class="co">#&gt;  1 Acinetobacter baumannii                          483                      385</span></span>
+<span><span class="co">#&gt;  2 Acinetobacter courvalinii                          1                       NA</span></span>
+<span><span class="co">#&gt;  3 Acinetobacter nosocomialis                         3                       NA</span></span>
+<span><span class="co">#&gt;  4 Campylobacter jejuni                             537                      408</span></span>
+<span><span class="co">#&gt;  5 Escherichia coli                                 506                      509</span></span>
+<span><span class="co">#&gt;  6 Klebsiella africana                                1                       NA</span></span>
+<span><span class="co">#&gt;  7 Klebsiella pneumoniae                            767                      468</span></span>
+<span><span class="co">#&gt;  8 Klebsiella quasipneumoniae                        11                       NA</span></span>
+<span><span class="co">#&gt;  9 Klebsiella variicola                              12                        4</span></span>
+<span><span class="co">#&gt; 10 Neisseria gonorrhoeae                            741                      558</span></span>
+<span><span class="co">#&gt; 11 Pseudomonas aeruginosa                           570                      147</span></span>
+<span><span class="co">#&gt; 12 Salmonella enterica                              640                      619</span></span>
+<span><span class="co">#&gt; 13 Staphylococcus aureus                            570                      597</span></span>
+<span><span class="co">#&gt; 14 Streptococcus pneumoniae                         607                      350</span></span>
+<span><span class="co">#&gt; 15 &lt;NA&gt;                                            5449                     4045</span></span></code></pre></div>
+<p>With training_db_cleaned, you can explore how resistance <strong>phenotypes</strong> vary across species and identify which taxa show diverse or consistent susceptibility patterns. See more examples in <code><a href="articles/examples.html">vignette("examples")</a></code>.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">training_db_cleaned</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">scientific_name_new</span>, <span class="va">phenotype</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>count <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span></span>
+<span>    names_from <span class="op">=</span> <span class="va">phenotype</span>,</span>
+<span>    values_from <span class="op">=</span> <span class="va">count</span>,</span>
+<span>    values_fill <span class="op">=</span> <span class="fl">0</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 14 × 4</span></span>
+<span><span class="co">#&gt;    scientific_name_new        Intermediate Resistant Susceptible</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;                             &lt;int&gt;     &lt;int&gt;       &lt;int&gt;</span></span>
+<span><span class="co">#&gt;  1 Acinetobacter baumannii             146       248         170</span></span>
+<span><span class="co">#&gt;  2 Acinetobacter courvalinii             0         0           1</span></span>
+<span><span class="co">#&gt;  3 Acinetobacter nosocomialis            0         0           3</span></span>
+<span><span class="co">#&gt;  4 Campylobacter jejuni                  0       326         211</span></span>
+<span><span class="co">#&gt;  5 Escherichia coli                     19       148         340</span></span>
+<span><span class="co">#&gt;  6 Klebsiella africana                   0         1           0</span></span>
+<span><span class="co">#&gt;  7 Klebsiella pneumoniae               133       326         308</span></span>
+<span><span class="co">#&gt;  8 Klebsiella quasipneumoniae            0         2           9</span></span>
+<span><span class="co">#&gt;  9 Klebsiella variicola                  0         3           9</span></span>
+<span><span class="co">#&gt; 10 Neisseria gonorrhoeae               148       336         267</span></span>
+<span><span class="co">#&gt; 11 Pseudomonas aeruginosa               94       249         228</span></span>
+<span><span class="co">#&gt; 12 Salmonella enterica                  19       346         350</span></span>
+<span><span class="co">#&gt; 13 Staphylococcus aureus                46       222         305</span></span>
+<span><span class="co">#&gt; 14 Streptococcus pneumoniae             53       311         343</span></span></code></pre></div>
+<p>You can use the unified input file for ML and DL (<code>training_and_test_inputfile_complete</code>) to explore phenotype distribution across species. Labels include <code>Susceptible, Resistant</code>, and <code>?</code> (for test samples without known outcomes). Below is a species-wise summary found in this file. See extended examples in <code><a href="articles/examples.html">vignette("examples")</a></code>.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">training_and_test_inputfile_complete</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">scientific_name_new</span>, <span class="va">phenotype_assigned</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>count <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span></span>
+<span>    names_from <span class="op">=</span> <span class="va">phenotype_assigned</span>,</span>
+<span>    values_from <span class="op">=</span> <span class="va">count</span>,</span>
+<span>    values_fill <span class="op">=</span> <span class="fl">0</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 21 × 4</span></span>
+<span><span class="co">#&gt;    scientific_name_new          `0` Resistant Susceptible</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;                      &lt;int&gt;     &lt;int&gt;       &lt;int&gt;</span></span>
+<span><span class="co">#&gt;  1 Acinetobacter baumannii      385       394         170</span></span>
+<span><span class="co">#&gt;  2 Acinetobacter courvalinii      0         0           1</span></span>
+<span><span class="co">#&gt;  3 Acinetobacter nosocomialis     0         0           3</span></span>
+<span><span class="co">#&gt;  4 Acinetobacter piscicola        1         0           0</span></span>
+<span><span class="co">#&gt;  5 Acinetobacter schindleri       2         0           0</span></span>
+<span><span class="co">#&gt;  6 Acinetobacter sp.              3         0           0</span></span>
+<span><span class="co">#&gt;  7 Bacillus clausii               1         0           0</span></span>
+<span><span class="co">#&gt;  8 Campylobacter coli             1         0           0</span></span>
+<span><span class="co">#&gt;  9 Campylobacter jejuni         408       326         211</span></span>
+<span><span class="co">#&gt; 10 Escherichia coli             509       154         353</span></span>
+<span><span class="co">#&gt; # ℹ 11 more rows</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="graphs">Graphs<a class="anchor" aria-label="anchor" href="#graphs"></a>
+</h2>
+<p>Antimicrobial resistance becomes easier to interpret when you start visualizing the data. For example:</p>
+<p><img src="reference/figures/phenotype_distribution.png" width="75%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/antibiotic_distribution.png" width="75%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>Below is the citation output from using <code>citation('AMRdb')</code> in R. Please run this yourself to check for any updates on how to cite <strong>AMRdb</strong>.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">'AMRdb'</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; To cite package 'AMRdb' in publications use:</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -225,7 +451,7 @@
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/EveliaCoss/AMRdb/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/EveliaCoss/AMRdb//issues/" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/EveliaCoss/AMRdb/issues/" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
